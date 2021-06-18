@@ -1,16 +1,47 @@
+function getTemperature(location)
+{
+    const request = require("request")
+
+    const key = "7159c526ce448236df0dea7e3a80201d"
+    const city = location
+
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
+
+    request(url, function(error, response, body){
+        if(error)
+        {
+            console.log("error:", error)
+        } 
+        else
+        {
+            const weather = JSON.parse(body);
+            
+            var datos = `The weather in ${weather.name} is:
+            -Temp min: ${weather.main.temp_min}ºC
+
+            -Temp max: ${weather.main.temp_max}°C
+            -Temp: ${weather.main.temp}`
+            console.log(datos)
+            
+            //API Conectada
+            //Falta retornar los valores.
+        }
+    })
+}
+
+
 function update(model,location,choosenOption)
 {
     const {name} = model
     const {temp} = model
     const {max} = model
     const {min} = model
-
     if (choosenOption === 'Add City')
     {
         name.push(location)
-        temp.push(27) //INSERTAR API
-        max.push(31)  //INSERTAR API          
-        min.push(22)//INSERTAR API
+        temp.push(26) //INSERTAR API
+        max.push(31) //INSERTAR API          
+        min.push(22)  //INSERTAR API
 
         return{
             ...model,
@@ -26,9 +57,9 @@ function update(model,location,choosenOption)
         {
             if (name[i] === location)
             {
-                temp[i] = 1000 //INSERTAR API
-                max[i] = 2300 //INSERTAR API
-                min[i] = 3450 //INSERTAR API
+                temp[i] = 100 //INSERTAR API
+                max[i] = 101 //INSERTAR API
+                min[i] = 99 //INSERTAR API
                 
             }
         }
@@ -38,34 +69,29 @@ function update(model,location,choosenOption)
             temp: temp,
             max: max,                
             min: min,
+        }
+    }
+    else
+    {
+        for(let i = 0; i< name.length; i++)
+        {
+            if (name[i] === location)
+            {
+                var remove = name.splice(i,1)
+                var remove = temp.splice(i,1)
+                var remove = max.splice(i,1)
+                var remove = min.splice(i,1)
             }
+        }
+        return{
+             ...model,
+            name: name,
+            temp: temp,
+            max: max,                
+            min: min,
+        }
     }
 }
-
-/*
-function temperature(model,name,temp,min,max)
-{
-  const temp = Math.floor(Math.random()*(40-0+1)+0)
-  const max = Math.floor(Math.random()*(40-temp+1)+temp)
-  const min = Math.floor(Math.random()*(temp-0+1)+0)
-}
-
-function update(name,temp,min,max,model)
-{
-    const newTemp = temp
-    const newMax = leftUnit
-    const newRightValue = ConvertTo(leftUnit,rightUnit,leftValue)
-    const newRightUnit = rightUnit
-    return {
-        ...model,
-        leftValue: newLeftValue,
-        leftUnit: newLeftUnit,
-        rightValue: newRightValue,
-        rightUnit: newRightUnit,
-    }
-
-}
-*/
 
 
 module.exports = {

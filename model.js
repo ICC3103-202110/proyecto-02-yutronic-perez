@@ -4,7 +4,6 @@ initModel =
     temp: [],
     max: [],
     min: [],
-    choosenOption: 'Add City',
     location: '',
 } 
 

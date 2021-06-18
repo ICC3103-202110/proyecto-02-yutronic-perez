@@ -14,7 +14,7 @@ async function app(state, update, view)
         printTable(table)
         
         const {choosenOption} = await input_option(model)
-        
+              
         if(choosenOption === 'Add City')
         {
             const {location} = await input_locations(model)
@@ -26,41 +26,18 @@ async function app(state, update, view)
             model: newModel,
             currentView: view(newModel)
             }
-
-
         }
-        else if(choosenOption === 'Update City')
+        else
         {
             const {location} = await list_locations(model)
-            console.log('perro5')
             const newModel = update(model,location,choosenOption)
-            console.log('perro7')
 
             state = {
             ...state,
             model: newModel,
             currentView: view(newModel)
             }
-
         }
-        else if(choosenOption === 'Delete City')
-        {
-            const {location} = await list_locations(model)
-            const {name} = model
-
-            for(let i = 0; i< name.length; i++)
-            {
-                if (name[i] === location)
-                {
-                    var remove = table.splice(i,1)
-                }
-            }
-        }
-        
-       
-
-
-
     }  
 }
 
